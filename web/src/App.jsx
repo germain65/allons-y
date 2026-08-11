@@ -39,7 +39,7 @@ const App = () => {
       <AuthProvider>
         <SocketProvider>
           <RideProvider>
-            <BrowserRouter basename={import.meta.env.BASE_URL}>
+            <BrowserRouter>
               <Routes>
                 <Route path="/" element={<LoadingPage />} />
                 <Route path="/home" element={<HomePage />} />

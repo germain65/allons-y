@@ -1,7 +1,7 @@
 // Fichier : src/pages/MainPage.jsx
-// Rôle : Page principale de l'application (carte + flow course)
+// Rôle : Page principale de l'application (carte MapLibre + flow course moderne)
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
 import { useGeolocation } from '../hooks/useGeolocation';
@@ -28,7 +28,7 @@ import ActiveTrip from '../components/driver/ActiveTrip';
 const MainPage = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
-  const { position, loading: mapLoading } = useGeolocation();
+  const { position, address, addressLoading, loading: mapLoading } = useGeolocation();
   const { rideState, setRideState, currentRide, offers, requestRide, cancelRide, acceptOffer, simulateDriverArriving } = useRide();
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -69,40 +69,121 @@ const MainPage = () => {
     setSelectedDestination(null);
   };
 
+  // Nom lisible de l'adresse utilisateur détectée
+  const userAddressText = addressLoading 
+    ? 'Détection de votre adresse...' 
+    : address?.road || address?.suburb || address?.display_name || 'Position actuelle';
+
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
-      {/* Header / Menu Toggle */}
-      <div style={{ position: 'absolute', top: '1rem', left: '1rem', zIndex: 20 }}>
+    <div style={{ height: '100dvh', width: '100vw', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden' }}>
+      {/* Header Glassmorphisme / Menu Toggle */}
+      <div style={{ position: 'absolute', top: '1.25rem', left: '1.25rem', right: '1.25rem', zIndex: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center', pointerEvents: 'none' }}>
         <button 
-          className="btn btn-surface" 
-          style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'white', boxShadow: 'var(--shadow-md)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', border: 'none', cursor: 'pointer' }}
+          className="btn btn-icon btn-surface" 
+          style={{ 
+            pointerEvents: 'auto',
+            width: '48px', 
+            height: '48px', 
+            borderRadius: '50%', 
+            backgroundColor: 'var(--glass-bg)', 
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            boxShadow: 'var(--shadow-md)', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            fontSize: '1.25rem', 
+            border: '1px solid var(--glass-border)', 
+            cursor: 'pointer' 
+          }}
           onClick={() => setMenuOpen(true)}
+          aria-label="Menu principal"
         >
           ☰
         </button>
+
+        {/* Badge de statut / rôle */}
+        <div 
+          className="card-glass" 
+          style={{ 
+            pointerEvents: 'auto',
+            padding: '0.5rem 1rem', 
+            borderRadius: 'var(--radius-full)', 
+            fontSize: '0.875rem', 
+            fontWeight: 600,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            boxShadow: 'var(--shadow-sm)'
+          }}
+        >
+          <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: user?.role === 'driver' ? (isOnline ? 'var(--color-success)' : 'var(--color-text-secondary)') : 'var(--color-primary)' }}></span>
+          {user?.role === 'driver' ? (isOnline ? 'Chauffeur En Ligne' : 'Hors Ligne') : 'Passager'}
+        </div>
       </div>
 
       <SideMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
       {/* Map Area */}
       <div style={{ flex: 1, position: 'relative' }}>
-        <MapView userPosition={position} drivers={mockDrivers} />
+        <MapView 
+          userPosition={position} 
+          drivers={mockDrivers} 
+          destinationPosition={selectedDestination ? { lat: selectedDestination.lat, lng: selectedDestination.lng } : null}
+        />
+
+        {/* Floating Action Button (FAB) pour recentrer le GPS */}
+        <button
+          className="btn btn-icon"
+          style={{
+            position: 'absolute',
+            right: '1.25rem',
+            bottom: rideState === 'idle' ? 'calc(35vh + 1rem)' : 'calc(55vh + 1rem)',
+            zIndex: 30,
+            width: '48px',
+            height: '48px',
+            borderRadius: '50%',
+            backgroundColor: 'var(--color-surface)',
+            color: 'var(--color-text)',
+            boxShadow: 'var(--shadow-lg)',
+            border: '1px solid var(--color-border)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '1.25rem',
+            cursor: 'pointer',
+            transition: 'all var(--transition-normal)'
+          }}
+          onClick={() => {
+            // Recentrages gérés automatiquement par MapView sur changement de position, ou re-trigger
+            window.dispatchEvent(new Event('resize'));
+          }}
+          title="Recentrer la carte"
+        >
+          🎯
+        </button>
       </div>
 
       {/* Bottom Sheet Area */}
-      <BottomSheet initialHeight={rideState === 'idle' ? '30vh' : '50vh'}>
+      <BottomSheet initialHeight={rideState === 'idle' ? '38vh' : '55vh'}>
         
         {/* RIDER FLOW */}
         {user?.role === 'rider' && (
           <>
             {rideState === 'idle' && (
-              <DestinationSearch onSelectDestination={handleSelectDestination} />
+              <DestinationSearch 
+                userPosition={position}
+                userAddress={userAddressText}
+                onSelectDestination={handleSelectDestination} 
+              />
             )}
             
             {rideState === 'price_calc' && (
-              <div>
-                <button className="btn btn-ghost" style={{ padding: 0, marginBottom: '1rem' }} onClick={() => setRideState('idle')}>← Retour</button>
-                <div style={{ fontWeight: 'bold', marginBottom: '1rem' }}>Vers : {selectedDestination?.name}</div>
+              <div className="animate-fadeIn">
+                <button className="btn btn-ghost" style={{ padding: '0.5rem 0', marginBottom: '0.5rem', fontWeight: 500 }} onClick={() => setRideState('idle')}>← Changer de destination</button>
+                <div style={{ fontWeight: 700, fontSize: '1.125rem', marginBottom: '0.5rem', color: 'var(--color-text)' }}>
+                  Vers : {selectedDestination?.name}
+                </div>
                 <PriceDisplay onConfirm={handleConfirmPrice} />
               </div>
             )}
@@ -185,3 +266,4 @@ const MainPage = () => {
 };
 
 export default MainPage;
+

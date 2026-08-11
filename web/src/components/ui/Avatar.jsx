@@ -1,11 +1,19 @@
 // Fichier : src/components/ui/Avatar.jsx
-// Rôle : Composant d'avatar utilisateur
+// Rôle : Composant d'avatar utilisateur premium
 
 import React from 'react';
 
 const Avatar = ({ src, alt, size = 'md', onClick }) => {
   const sizeClass = `avatar-${size}`;
   
+  const commonStyles = {
+    cursor: onClick ? 'pointer' : 'default',
+    transition: 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
+    border: '2px solid var(--border-default, var(--color-border))',
+    boxShadow: 'var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05))',
+    objectFit: 'cover'
+  };
+
   if (src) {
     return (
       <img 
@@ -13,7 +21,9 @@ const Avatar = ({ src, alt, size = 'md', onClick }) => {
         alt={alt || "Avatar"} 
         className={`avatar ${sizeClass}`} 
         onClick={onClick}
-        style={{ cursor: onClick ? 'pointer' : 'default' }}
+        style={commonStyles}
+        onMouseOver={(e) => onClick && (e.currentTarget.style.transform = 'scale(1.05)')}
+        onMouseOut={(e) => onClick && (e.currentTarget.style.transform = 'scale(1)')}
       />
     );
   }
@@ -25,15 +35,18 @@ const Avatar = ({ src, alt, size = 'md', onClick }) => {
     <div 
       className={`avatar ${sizeClass}`}
       onClick={onClick}
-      style={{ 
+      style={{
+        ...commonStyles,
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'center',
-        backgroundColor: 'var(--color-primary-light)',
+        background: 'linear-gradient(135deg, var(--primary, var(--color-primary)), var(--primary-hover, var(--color-primary-dark, #2563eb)))',
         color: 'white',
-        fontWeight: 'bold',
-        cursor: onClick ? 'pointer' : 'default'
+        fontWeight: '600',
+        textShadow: '0 1px 2px rgba(0,0,0,0.2)'
       }}
+      onMouseOver={(e) => onClick && (e.currentTarget.style.transform = 'scale(1.05)')}
+      onMouseOut={(e) => onClick && (e.currentTarget.style.transform = 'scale(1)')}
     >
       {initials}
     </div>
