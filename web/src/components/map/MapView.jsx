@@ -3,13 +3,15 @@
  * Rôle: Composant principal d'affichage de la carte utilisant MapLibre GL JS et OpenFreeMap
  */
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 const MapView = ({ userPosition, drivers = [], route = null, destinationPosition = null }) => {
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
+  const [mapReady, setMapReady] = useState(false);
+  const [mapError, setMapError] = useState(null);
   
   // Références pour stocker les instances des marqueurs
   const userMarkerRef = useRef(null);
@@ -27,17 +29,51 @@ const MapView = ({ userPosition, drivers = [], route = null, destinationPosition
     // Déterminer le centre initial
     const center = userPosition ? [userPosition.lng, userPosition.lat] : defaultCenter;
 
+    const rasterStyle = {
+      version: 8,
+      sources: {
+        osm: {
+          type: 'raster',
+          tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+          tileSize: 256,
+          attribution: '&copy; OpenStreetMap contributors',
+        },
+      },
+      layers: [
+        {
+          id: 'osm',
+          type: 'raster',
+          source: 'osm',
+        },
+      ],
+    };
+
     // Création de l'instance MapLibre
     mapRef.current = new maplibregl.Map({
       container: mapContainerRef.current,
-      style: 'https://tiles.openfreemap.org/styles/liberty', // Style OpenFreeMap "Liberty"
+      style: rasterStyle,
       center: center,
-      zoom: 15, // Zoom initial de 15
-      attributionControl: false, // Supprimer l'attribution pour un look plus épuré
+      zoom: 14,
+      attributionControl: true,
     });
+
+    mapRef.current.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right');
+    mapRef.current.on('load', () => {
+      setMapReady(true);
+      setMapError(null);
+      mapRef.current?.resize();
+    });
+    mapRef.current.on('error', (event) => {
+      setMapError(event?.error?.message || 'La carte ne peut pas etre chargee pour le moment.');
+    });
+
+    const resizeTimers = [100, 350, 900].map((delay) =>
+      window.setTimeout(() => mapRef.current?.resize(), delay)
+    );
 
     // Nettoyage propre lors du démontage du composant
     return () => {
+      resizeTimers.forEach(window.clearTimeout);
       if (mapRef.current) {
         mapRef.current.remove();
         mapRef.current = null;
@@ -83,14 +119,12 @@ const MapView = ({ userPosition, drivers = [], route = null, destinationPosition
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: #ffffff;
             border-radius: 50%;
             width: 36px;
             height: 36px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 2px 8px rgba(15,23,42,0.18);
+            border: 1px solid rgba(15,23,42,0.12);
             font-size: 20px;
             transition: transform 0.3s ease, background 0.3s ease;
           }
@@ -181,18 +215,38 @@ const MapView = ({ userPosition, drivers = [], route = null, destinationPosition
   }, [drivers]);
 
   return (
-    <div 
-      ref={mapContainerRef} 
-      style={{ 
-        width: '100%', 
-        height: '100%', 
-        position: 'absolute', 
-        top: 0, 
-        left: 0, 
-        zIndex: 0,
-        fontFamily: 'Inter, sans-serif'
-      }} 
-    />
+    <div style={{ position: 'absolute', inset: 0, backgroundColor: '#e7ecef' }}>
+      <div 
+        ref={mapContainerRef} 
+        style={{ 
+          width: '100%', 
+          height: '100%', 
+          position: 'absolute', 
+          top: 0, 
+          left: 0, 
+          zIndex: 0,
+          fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+        }} 
+      />
+      {(!mapReady || mapError) && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'grid',
+            placeItems: 'center',
+            padding: '1rem',
+            color: '#334155',
+            background: 'linear-gradient(180deg, #edf2f4 0%, #dfe7eb 100%)',
+            zIndex: 1,
+            textAlign: 'center',
+            fontWeight: 600,
+          }}
+        >
+          {mapError || 'Chargement de la carte...'}
+        </div>
+      )}
+    </div>
   );
 };
 

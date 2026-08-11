@@ -28,48 +28,38 @@ const LoadingPage = () => {
       flexDirection: 'column',
       alignItems: 'center', 
       justifyContent: 'center',
-      background: 'linear-gradient(135deg, var(--color-primary) 0%, #d35400 100%)', // Orange profond
+      background: '#f6f4ef',
       overflow: 'hidden',
       position: 'relative'
     }}>
-      {/* Cercles de fond décoratifs */}
-      <div style={{ position: 'absolute', top: '-10%', left: '-10%', width: '300px', height: '300px', background: 'rgba(255,255,255,0.1)', borderRadius: '50%', filter: 'blur(40px)' }} />
-      <div style={{ position: 'absolute', bottom: '-10%', right: '-10%', width: '300px', height: '300px', background: 'rgba(0,0,0,0.1)', borderRadius: '50%', filter: 'blur(40px)' }} />
-
-      {/* Icône dans un cercle glassmorphism */}
       <div style={{
-        width: '120px',
-        height: '120px',
-        background: 'rgba(255, 255, 255, 0.2)',
-        backdropFilter: 'blur(10px)',
-        WebkitBackdropFilter: 'blur(10px)',
-        borderRadius: '50%',
+        width: '96px',
+        height: '96px',
+        background: '#ffffff',
+        borderRadius: '18px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.2)',
-        border: '1px solid rgba(255, 255, 255, 0.3)',
-        animation: 'pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1)',
-        marginBottom: '2rem'
+        boxShadow: '0 10px 24px rgba(15, 23, 42, 0.08)',
+        border: '1px solid rgba(15, 23, 42, 0.08)',
+        marginBottom: '1.5rem'
       }}>
-        <div style={{ fontSize: '4.5rem', animation: 'bounce 2s infinite' }}>🛵</div>
+        <div style={{ fontSize: '3.5rem' }}>🛵</div>
       </div>
       
-      {/* Titre avec animation de reveal (fade In Up) */}
       <h1 className="animate-fadeIn" style={{ 
-        color: 'white', 
+        color: '#18212f',
         marginBottom: '0.5rem', 
-        fontSize: '3rem',
-        fontWeight: '800',
-        letterSpacing: '-1px',
-        textShadow: '0 4px 12px rgba(0,0,0,0.1)'
+        fontSize: '2.25rem',
+        fontWeight: '750',
+        letterSpacing: '0'
       }}>
         Allons-y
       </h1>
       
       <p className="animate-fadeIn" style={{ 
-        color: 'rgba(255,255,255,0.9)', 
-        fontSize: '1.125rem',
+        color: '#5f6b7a', 
+        fontSize: '1rem',
         fontWeight: '500',
         animationDelay: '0.2s',
         animationFillMode: 'both'
@@ -77,11 +67,10 @@ const LoadingPage = () => {
         {t('app.tagline')}
       </p>
       
-      {/* Barre de progression élégante */}
       <div className="animate-fadeIn" style={{ 
         width: '180px', 
-        height: '4px', 
-        backgroundColor: 'rgba(255,255,255,0.2)', 
+        height: '3px', 
+        backgroundColor: 'rgba(15,23,42,0.08)', 
         borderRadius: '4px', 
         marginTop: '3rem', 
         overflow: 'hidden',
@@ -91,7 +80,7 @@ const LoadingPage = () => {
         <div style={{ 
           width: '50%', 
           height: '100%', 
-          backgroundColor: 'white', 
+          backgroundColor: 'var(--color-primary)', 
           borderRadius: '4px', 
           animation: 'slideIn 1.5s infinite cubic-bezier(0.65, 0, 0.35, 1)' 
         }}></div>

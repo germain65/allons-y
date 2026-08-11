@@ -1035,3 +1035,127 @@ h6, .h6 { font-size: 1rem; font-weight: 500; line-height: 1.5; }
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* ==========================================================================
+   19. FINITION SOBRE
+   ========================================================================== */
+:root {
+  --primary: #c84f26;
+  --primary-hover: #a94220;
+  --primary-active: #87371c;
+  --primary-light: rgba(200, 79, 38, 0.1);
+  --primary-glow: rgba(200, 79, 38, 0.18);
+
+  --bg-base: #f6f4ef;
+  --bg-surface: #ffffff;
+  --bg-elevated: #ffffff;
+  --bg-subtle: #eeebe4;
+
+  --text-primary: #18212f;
+  --text-secondary: #566171;
+  --text-tertiary: #7d8794;
+  --text-inverse: #ffffff;
+
+  --border-subtle: rgba(24, 33, 47, 0.06);
+  --border-default: rgba(24, 33, 47, 0.11);
+  --border-strong: rgba(24, 33, 47, 0.18);
+
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.07);
+  --shadow-md: 0 6px 16px rgba(15, 23, 42, 0.09);
+  --shadow-lg: 0 12px 28px rgba(15, 23, 42, 0.12);
+  --shadow-xl: 0 18px 44px rgba(15, 23, 42, 0.14);
+
+  --glass-bg: rgba(255, 255, 255, 0.94);
+  --glass-border: rgba(24, 33, 47, 0.1);
+  --glass-shadow: var(--shadow-md);
+  --glass-blur: blur(10px);
+
+  --color-bg-base: var(--bg-base);
+  --color-primary-dark: var(--primary-active);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  letter-spacing: 0;
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+  letter-spacing: 0;
+}
+
+h1,
+.h1 {
+  font-size: 2rem;
+  font-weight: 750;
+}
+
+h2,
+.h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.btn {
+  border-radius: var(--radius-md);
+  font-weight: 650;
+  box-shadow: none;
+}
+
+.btn-primary {
+  background: var(--primary);
+  box-shadow: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+  box-shadow: var(--shadow-sm);
+  transform: none;
+}
+
+.card,
+.card:hover {
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+  transform: none;
+}
+
+.card-glass {
+  background: var(--glass-bg);
+  box-shadow: var(--shadow-sm);
+}
+
+.bottom-sheet {
+  background: var(--bg-surface) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-color: var(--border-default) !important;
+  box-shadow: 0 -8px 28px rgba(15, 23, 42, 0.12) !important;
+}
+
+.maplibregl-map {
+  background: #e7ecef;
+}
+
+.maplibregl-ctrl-bottom-left .maplibregl-ctrl {
+  display: block;
+}
+
+.maplibregl-ctrl-attrib {
+  font-size: 10px;
+}
