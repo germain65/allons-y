@@ -7,6 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
   plugins: [react()],
+  base: process.env.VITE_BASE_PATH || '/',
   resolve: {
     alias: {
       '@shared': path.resolve(__dirname, '../shared'),

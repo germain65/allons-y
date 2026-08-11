@@ -34,12 +34,14 @@ const ProtectedRoute = ({ children }) => {
 };
 
 const App = () => {
+  const basename = import.meta.env.BASE_URL === '/' ? undefined : import.meta.env.BASE_URL;
+
   return (
     <ThemeProvider>
       <AuthProvider>
         <SocketProvider>
           <RideProvider>
-            <BrowserRouter>
+            <BrowserRouter basename={basename}>
               <Routes>
                 <Route path="/" element={<LoadingPage />} />
                 <Route path="/home" element={<HomePage />} />

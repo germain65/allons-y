@@ -43,6 +43,8 @@ jobs:
           npm install
 
       - name: Build web application
+        env:
+          VITE_BASE_PATH: /allons-y/
         run: |
           cd web
           npm run build
