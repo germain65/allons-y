@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Allons-y",
+    "slug": "allons-y",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "backgroundColor": "#0F1419",
+      "resizeMode": "contain"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.allonsy.app",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Allons-y utilise votre position pour trouver des chauffeurs à proximité.",
+        "NSLocationAlwaysUsageDescription": "Allons-y suit votre position pendant les courses pour votre sécurité.",
+        "NSCameraUsageDescription": "Allons-y utilise votre caméra pour prendre des photos de profil et partager votre localisation.",
+        "NSPhotoLibraryUsageDescription": "Allons-y accède à vos photos pour votre photo de profil et le chat."
+      }
+    },
+    "android": {
+      "package": "com.allonsy.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#FF6B35"
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE"
+      ]
+    }
+  }
+}

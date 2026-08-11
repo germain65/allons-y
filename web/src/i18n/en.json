@@ -1,0 +1,29 @@
+{
+  "app": {
+    "name": "Allons-y",
+    "tagline": "Closer than ever"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "phone": "Phone number",
+    "password": "Password"
+  },
+  "main": {
+    "searchPlaceholder": "Where do you want to go?"
+  },
+  "ride": {
+    "findDriver": "Find a driver",
+    "cancelRide": "Cancel ride"
+  },
+  "settings": {
+    "title": "Settings",
+    "theme": "Theme",
+    "language": "Language",
+    "logout": "Logout"
+  },
+  "menu": {
+    "home": "Home",
+    "settings": "Settings"
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "app": {
+    "name": "Allons-y",
+    "tagline": "Plus proche que jamais"
+  },
+  "auth": {
+    "login": "Connexion",
+    "signup": "Inscription",
+    "phone": "Numéro de téléphone",
+    "password": "Mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "createAccount": "Créer un compte",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Email (optionnel)",
+    "accountType": "Type de compte",
+    "rider": "Passager",
+    "driver": "Chauffeur",
+    "province": "Province",
+    "city": "Ville",
+    "confirmPassword": "Confirmer le mot de passe",
+    "profilePhoto": "Photo de profil",
+    "licensePlate": "Plaque d'immatriculation",
+    "idCard": "Carte d'identité",
+    "terms": "J'accepte les conditions générales",
+    "next": "Suivant",
+    "prev": "Précédent",
+    "submit": "Valider"
+  },
+  "main": {
+    "searchPlaceholder": "Où voulez-vous vous rendre ?",
+    "online": "En ligne",
+    "offline": "Hors ligne"
+  },
+  "ride": {
+    "findDriver": "Trouver un chauffeur",
+    "cancelRide": "Annuler la course",
+    "price": "Prix",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "driverArriving": "Votre chauffeur arrive dans {{time}} minutes",
+    "contactDriver": "Contacter le chauffeur",
+    "imHere": "D'accord, j'arrive",
+    "whyCancel": "Pourquoi annulez-vous ?",
+    "tooLong": "Temps d'attente trop long",
+    "changePlans": "Changement de plans",
+    "priceTooHigh": "Prix trop élevé",
+    "other": "Autre",
+    "confirmCancel": "Confirmer l'annulation",
+    "searching": "Recherche de chauffeur..."
+  },
+  "driver": {
+    "newOffer": "Nouvelle offre",
+    "proposePrice": "Proposer un prix",
+    "informArrival": "Informer le client que vous êtes arrivé",
+    "contactRider": "Contacter le client"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "theme": "Thème",
+    "language": "Langue",
+    "darkMode": "Mode sombre",
+    "distanceUnit": "Unité de distance",
+    "locationSharing": "Partage de localisation",
+    "logout": "Déconnexion",
+    "deleteAccount": "Supprimer le compte",
+    "confirmDelete": "Voulez-vous vraiment supprimer votre compte ?"
+  },
+  "rating": {
+    "thanks": "Merci pour votre avis et à très bientôt.",
+    "submit": "Valider la note"
+  },
+  "menu": {
+    "home": "Accueil",
+    "history": "Historique",
+    "notifications": "Notifications",
+    "security": "Sécurité",
+    "settings": "Paramètres",
+    "help": "Aide & Support",
+    "switchToDriver": "Passer en mode chauffeur",
+    "switchToRider": "Passer en mode passager"
+  }
+}

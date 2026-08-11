@@ -1,0 +1,13 @@
+{
+  "name": "@allons-y/shared",
+  "version": "1.0.0",
+  "description": "Code partagé Allons-y — constantes, pricing, validation",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./constants": "./constants/index.js",
+    "./pricing": "./pricing/index.js",
+    "./validation": "./validation/index.js"
+  }
+}

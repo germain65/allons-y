@@ -1,0 +1,15 @@
+{
+  "name": "allons-y",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Allons-y — Application de transport à la demande pour Goma et Bukavu, RDC",
+  "scripts": {
+    "install:all": "npm install && cd shared && npm install && cd ../backend && npm install && cd ../web && npm install",
+    "backend:dev": "cd backend && npm run dev",
+    "web:dev": "cd web && npm run dev",
+    "dev": "concurrently \"npm run backend:dev\" \"npm run web:dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
