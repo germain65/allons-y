@@ -1,3 +1,6 @@
+# Fichier : .github/workflows/deploy-pages.yml
+# Rôle   : Déploie l'application web Allons-y sur GitHub Pages à chaque push sur main
+
 name: Deploy to GitHub Pages
 
 on:
@@ -27,8 +30,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: 'npm'
+          node-version: 20
 
       - name: Install shared dependencies
         run: |
